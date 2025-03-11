@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>技術とビジネスの橋渡し</title>
+  <style>
+    :root {
+      --primary: #0056b3;
+      --secondary: #2d2d3a;
+      --accent: #00b8d4;
+      --background: #1a1a2e;
+      --text: #f0f0f0;
+      --card-bg: #23233b;
+      --highlight: #ff4081;
+      --success: #4caf50;
+      --warning: #ff9800;
+      --danger: #f44336;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      padding: 60px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .headline {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .headline h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(45deg, var(--accent), var(--highlight));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    
+    .headline p {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    
+    .company-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: rgba(0, 87, 179, 0.2);
+      border: 1px solid var(--primary);
+      border-radius: 30px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    
+    .main-content {
+      flex-grow: 1;
+      padding: 20px 0 60px;
+    }
+    
+    .presenter-info {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .presenter-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .presenter-title {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+    
+    .sections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+    
+    .section-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .section-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .section-image {
+      height: 180px;
+      background-color: rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .section-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+      z-index: 1;
+    }
+    
+    .section-image svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .section-content {
+      padding: 30px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .section-number {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      opacity: 0.7;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    
+    .section-desc {
+      margin-bottom: 25px;
+      opacity: 0.8;
+      flex-grow: 1;
+    }
+    
+    .section-link {
+      margin-top: auto;
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: rgba(0, 184, 212, 0.2);
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      color: var(--text);
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .section-link:hover {
+      background-color: var(--accent);
+      color: var(--background);
+    }
+    
+    .intro-text {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    .dots-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+    
+    .dot {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+    
+    footer {
+      padding: 30px 0;
+      text-align: center;
+      opacity: 0.7;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--background);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 5px solid rgba(255, 255, 255, 0.1);
+      border-top-color: var(--accent);
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .loading-hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    @media (max-width: 768px) {
+      .headline h1 {
+        font-size: 2.5rem;
+      }
+      
+      .headline p {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+  
+  <div class="dots-background" id="dots-background"></div>
+  
+  <div class="container">
+    <header>
+      <div class="headline">
+        <div class="company-badge">Ridge-i</div>
+        <h1>技術とビジネスの橋渡し</h1>
+        <p>AIが社会課題を解決するために必要な視点と実践例</p>
+      </div>
+    </header>
+    
+    <div class="main-content">
+      <div class="presenter-info">
+        <div class="presenter-name">プレゼンテーション</div>
+        <div class="presenter-title">衛星データと人工知能の社会実装に向けて</div>
+      </div>
+      
+      <div class="intro-text">
+        <p>AIエンジニアとして最先端の技術開発に没頭するのも大事ですが、それだけでは実際の社会で使われるサービスは生まれません。技術の価値をビジネスの言葉に翻訳し、現場で役立つ形にすることが重要です。Ridge-iはまさにその点を重視し、エンジニアとビジネスコンサルタントが一体となって日々知見をぶつけ合い、AIを実用レベルまで高めています。</p>
+      </div>
+      
+      <div class="sections-grid">
+        <div class="section-card">
+          <div class="section-image">
+            <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100%" height="100%" fill="#1a1a2e" />
+              <circle cx="150" cy="90" r="50" fill="#0056b3" opacity="0.3" />
+              <circle cx="150" cy="90" r="40" fill="#00b8d4" opacity="0.4" />
+              <circle cx="150" cy="90" r="30" fill="#ff4081" opacity="0.5" />
+              <text x="150" y="95" font-family="Arial" font-size="24" fill="white" text-anchor="middle">1</text>
+            </svg>
+          </div>
+          <div class="section-content">
+            <div class="section-number">セクション 1</div>
+            <div class="section-title">キーポイント</div>
+            <div class="section-desc">技術とビジネスの橋渡しを行う上で重要な3つのポイントを解説します。ビジネスと技術の両面を理解することの重要性、AIとデータ融合の価値、そして現場の課題を根気強く探る姿勢について説明します。</div>
+            <a href="key-points.html" class="section-link">セクションを見る</a>
+          </div>
+        </div>
+        
+        <div class="section-card">
+          <div class="section-image">
+            <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100%" height="100%" fill="#1a1a2e" />
+              <rect x="50" y="40" width="200" height="100" rx="10" fill="#0056b3" opacity="0.3" />
+              <rect x="70" y="60" width="160" height="60" rx="5" fill="#00b8d4" opacity="0.4" />
+              <line x1="70" y1="80" x2="230" y2="80" stroke="#ff4081" stroke-width="2" />
+              <line x1="70" y1="100" x2="230" y2="100" stroke="#ff4081" stroke-width="2" />
+              <text x="150" y="95" font-family="Arial" font-size="24" fill="white" text-anchor="middle">2</text>
+            </svg>
+          </div>
+          <div class="section-content">
+            <div class="section-number">セクション 2</div>
+            <div class="section-title">ケーススタディ</div>
+            <div class="section-desc">実際のプロジェクト事例を通じて、技術とビジネスの視点をどのように融合させ、実社会の課題解決に結びつけたかを紹介します。SAR地盤沈下検出、土砂災害の自動検出、国土地理院の地図更新プロセス効率化といった具体的な取り組みを詳しく解説します。</div>
+            <a href="case-studies.html" class="section-link">セクションを見る</a>
+          </div>
+        </div>
+        
+        <div class="section-card">
+          <div class="section-image">
+            <svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100%" height="100%" fill="#1a1a2e" />
+              <path d="M50,120 L150,60 L250,120" stroke="#0056b3" stroke-width="4" fill="none" />
+              <path d="M50,120 L150,90 L250,120" stroke="#00b8d4" stroke-width="4" fill="none" />
+              <path d="M50,120 L150,120 L250,120" stroke="#ff4081" stroke-width="4" fill="none" />
+              <text x="150" y="95" font-family="Arial" font-size="24" fill="white" text-anchor="middle">3</text>
+            </svg>
+          </div>
+          <div class="section-content">
+            <div class="section-number">セクション 3</div>
+            <div class="section-title">実用化へのアプローチ</div>
+            <div class="section-desc">技術を社会実装に導くためのアプローチと実用化までのプロセスを解説します。現場の真の課題を特定することから始まり、小さなPoCによる検証、コストと価値のバランス設計、そして技術の価値をビジネス言語で伝えることの重要性について説明します。</div>
+            <a href="approach.html" class="section-link">セクションを見る</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+      © 2025 技術とビジネスの橋渡し プレゼンテーション
+    </footer>
+  </div>
+
+  <script>
+    // ドット背景の生成
+    function createDots() {
+      const dotsContainer = document.getElementById('dots-background');
+      const numDots = 100;
+      
+      for (let i = 0; i < numDots; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        
+        // ランダムな位置を設定
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        
+        dot.style.left = x + '%';
+        dot.style.top = y + '%';
+        
+        dotsContainer.appendChild(dot);
+      }
+    }
+    
+    // ローディング画面
+    window.addEventListener('load', () => {
+      createDots();
+      
+      const loader = document.querySelector('.loading-overlay');
+      setTimeout(() => {
+        loader.classList.add('loading-hidden');
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>技術とビジネスの橋渡し - 実用化へのアプローチ</title>
+  <style>
+    :root {
+      --primary: #0056b3;
+      --secondary: #2d2d3a;
+      --accent: #00b8d4;
+      --background: #1a1a2e;
+      --text: #f0f0f0;
+      --card-bg: #23233b;
+      --highlight: #ff4081;
+      --success: #4caf50;
+      --warning: #ff9800;
+      --danger: #f44336;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      padding: 40px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .headline {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .headline h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--accent), var(--highlight));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    
+    .headline p {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    
+    .company-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: rgba(0, 87, 179, 0.2);
+      border: 1px solid var(--primary);
+      border-radius: 30px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 20px;
+    }
+    
+    .nav-link {
+      padding: 10px 20px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .nav-link:hover {
+      background-color: var(--accent);
+      color: var(--background);
+    }
+    
+    .main-content {
+      padding: 50px 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .approach-intro {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .approach-intro h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(45deg, var(--success), var(--highlight));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    
+    .approach-intro p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    .bridge-diagram {
+      position: relative;
+      height: 300px;
+      margin: 60px 0;
+      overflow: hidden;
+    }
+    
+    .tech-side, .business-side {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      top: 30px;
+    }
+    
+    .tech-side {
+      left: 50px;
+      background-color: rgba(0, 184, 212, 0.2);
+      border: 2px solid var(--accent);
+    }
+    
+    .business-side {
+      right: 50px;
+      background-color: rgba(76, 175, 80, 0.2);
+      border: 2px solid var(--success);
+    }
+    
+    .side-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    
+    .side-items {
+      text-align: left;
+      width: 100%;
+    }
+    
+    .side-item {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .side-item::before {
+      content: '•';
+      margin-right: 10px;
+      color: var(--accent);
+    }
+    
+    .business-side .side-item::before {
+      color: var(--success);
+    }
+    
+    .bridge {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 600px);
+      height: 80px;
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      border: 2px solid var(--highlight);
+    }
+    
+    .bridge-pillar {
+      position: absolute;
+      width: 20px;
+      height: 100px;
+      background-color: var(--highlight);
+      bottom: 0;
+    }
+    
+    .pillar-left {
+      left: 25%;
+    }
+    
+    .pillar-right {
+      right: 25%;
+    }
+    
+    .bridge-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--highlight);
+    }
+    
+    .process-steps {
+      margin-top: 60px;
+    }
+    
+    .process-steps h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .step-container {
+      position: relative;
+      margin-left: 30px;
+      padding-left: 30px;
+      padding-bottom: 40px;
+      border-left: 2px dashed rgba(255, 255, 255, 0.1);
+    }
+    
+    .step-container:last-child {
+      border-left: none;
+    }
+    
+    .step {
+      position: relative;
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .step-number {
+      position: absolute;
+      left: -45px;
+      top: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      z-index: 1;
+    }
+    
+    .step h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .step p {
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+    
+    .step-highlight {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    
+    .ctas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+    
+    .cta-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .cta-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--highlight);
+    }
+    
+    .cta-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .cta-card p {
+      margin-bottom: 25px;
+      opacity: 0.8;
+    }
+    
+    .cta-button {
+      padding: 10px 25px;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      border-radius: 30px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .conclusion {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 40px;
+      margin-top: 60px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .conclusion h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    .conclusion-items {
+      text-align: left;
+      max-width: 600px;
+      margin: 30px auto;
+    }
+    
+    .conclusion-item {
+      margin-bottom: 15px;
+      padding-left: 30px;
+      position: relative;
+    }
+    
+    .conclusion-item::before {
+      content: '•';
+      position: absolute;
+      left: 10px;
+      color: var(--highlight);
+    }
+    
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .tag-tech {
+      background-color: rgba(0, 184, 212, 0.2);
+      border: 1px solid var(--accent);
+    }
+    
+    .tag-business {
+      background-color: rgba(76, 175, 80, 0.2);
+      border: 1px solid var(--success);
+    }
+    
+    .tag-approach {
+      background-color: rgba(255, 64, 129, 0.2);
+      border: 1px solid var(--highlight);
+    }
+    
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+    }
+    
+    .nav-button {
+      padding: 10px 20px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .nav-button:hover {
+      background-color: var(--accent);
+      color: var(--background);
+    }
+    
+    footer {
+      padding: 30px 0;
+      text-align: center;
+      opacity: 0.7;
+      font-size: 0.9rem;
+      margin-top: 50px;
+    }
+    
+    @media (max-width: 768px) {
+      .headline h1 {
+        font-size: 2.5rem;
+      }
+      
+      .headline p {
+        font-size: 1.2rem;
+      }
+      
+      .bridge-diagram {
+        height: 600px;
+      }
+      
+      .tech-side, .business-side {
+        width: 200px;
+        height: 200px;
+      }
+      
+      .tech-side {
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .business-side {
+        bottom: 30px;
+        top: auto;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+      }
+      
+      .bridge {
+        width: 100px;
+        height: 300px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      
+      .bridge-pillar {
+        width: 100px;
+        height: 20px;
+      }
+      
+      .pillar-left {
+        top: 25%;
+        left: 0;
+      }
+      
+      .pillar-right {
+        bottom: 25%;
+        left: 0;
+        top: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="headline">
+        <div class="company-badge">Ridge-i</div>
+        <h1>技術とビジネスの橋渡し</h1>
+        <p>実用化へのアプローチ</p>
+      </div>
+    </header>
+    
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">キーポイント</a>
+      <a href="case-studies.html" class="nav-link">ケーススタディ</a>
+      <a href="#" class="nav-link">実用化へのアプローチ</a>
+    </div>
+    
+    <div class="main-content">
+      <div class="approach-intro">
+        <h2>技術を社会実装に導くためのアプローチ</h2>
+        <p>技術的に優れたAIでも、ビジネス価値に結びつかなければ社会に貢献できません。技術を実用的なソリューションに転換するためのアプローチを紹介します。</p>
+      </div>
+      
+      <div class="bridge-diagram">
+        <div class="tech-side">
+          <div class="side-title">技術側の視点</div>
+          <div class="side-items">
+            <div class="side-item">革新的アルゴリズム</div>
+            <div class="side-item">精度向上</div>
+            <div class="side-item">技術的優位性</div>
+            <div class="side-item">最新研究成果</div>
+          </div>
+        </div>
+        
+        <div class="bridge">
+          <div class="bridge-title">橋渡し人材</div>
+          <div class="bridge-pillar pillar-left"></div>
+          <div class="bridge-pillar pillar-right"></div>
+        </div>
+        
+        <div class="business-side">
+          <div class="side-title">ビジネス側の視点</div>
+          <div class="side-items">
+            <div class="side-item">コスト効率</div>
+            <div class="side-item">社会的価値</div>
+            <div class="side-item">実用性</div>
+            <div class="side-item">投資対効果</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="process-steps">
+        <h2>実用化までのプロセス</h2>
+        
+        <div class="step-container">
+          <div class="step-number">1</div>
+          <div class="step">
+            <h3>現場の真の課題を特定する</h3>
+            <p>技術ありきでなく、<span class="step-highlight">現場の声に耳を傾ける姿勢</span>から始めます。ユーザーが本当に必要としているのは何か、課題の根本原因は何かを理解することが重要です。</p>
+            <p>例えば、国土地理院の地図更新プロセスでは、コスト制約の中で全国の地図精度を維持するという課題が明らかになりました。この洞察がなければ、適切なソリューションは生まれなかったでしょう。</p>
+            <div class="tag tag-approach">ニーズ探索</div>
+            <div class="tag tag-business">課題定義</div>
+          </div>
+        </div>
+        
+        <div class="step-container">
+          <div class="step-number">2</div>
+          <div class="step">
+            <h3>小さなPoCから始める</h3>
+            <p>大規模な開発に踏み切る前に、<span class="step-highlight">小さな概念実証（PoC）</span>から始めることが重要です。これにより、アイデアの実現可能性を低コストで検証し、関係者からの信頼を得ることができます。</p>
+            <p>土砂災害検出AIの例では、まず限られた地域での検証を行い、その結果をもとにJAXAとの信頼関係を構築しました。現場の反応は当初「本当にそんなにうまくいくのか？」と半信半疑でしたが、小さな成功を積み重ねることで信用を獲得していきました。</p>
+            <div class="tag tag-approach">実証実験</div>
+            <div class="tag tag-tech">検証</div>
+            <div class="tag tag-business">信頼構築</div>
+          </div>
+        </div>
+        
+        <div class="step-container">
+          <div class="step-number">3</div>
+          <div class="step">
+            <h3>コストと価値のバランスを取る</h3>
+            <p>完璧な技術を追求するのではなく、<span class="step-highlight">「十分実用的なライン」</span>を見極めることが重要です。コストと価値のバランスを取り、投資対効果の高いソリューションを設計します。</p>
+            <p>RIDGE DUAL AIの例では、低解像度と高解像度の画像を組み合わせることで、最小限のコストで最大限の効果を生み出す設計を行いました。完璧な精度よりも「必要な精度を効率よく達成する」ことに焦点を当てています。</p>
+            <div class="tag tag-approach">効率設計</div>
+            <div class="tag tag-business">投資対効果</div>
+            <div class="tag tag-tech">実用化設計</div>
+          </div>
+        </div>
+        
+        <div class="step-container">
+          <div class="step-number">4</div>
+          <div class="step">
+            <h3>技術の価値をビジネス言語で伝える</h3>
+            <p>技術的な素晴らしさだけでなく、<span class="step-highlight">ビジネス価値や社会的インパクト</span>の観点から技術の意義を伝えることが重要です。関係者に「この技術で何ができるのか」を明確に伝えられなければ、実用化への道は開けません。</p>
+            <p>例えば、国土地理院向けのプロジェクトでは、単に「変化検出の精度が向上した」という技術的な成果だけでなく、「限られた予算内で効率よく全国の地図精度を維持できる」というビジネス的なメリットを強調しました。これにより、技術的に保守的な現場にも受け入れられる道が開けました。</p>
+            <div class="tag tag-approach">価値翻訳</div>
+            <div class="tag tag-business">ビジネス言語化</div>
+            <div class="tag tag-tech">ユースケース設計</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="conclusion">
+        <h2>まとめ</h2>
+        <p>技術とビジネスの橋渡しには、両方の視点を持ち、現場の課題に寄り添いながら解決策を模索する姿勢が重要です。</p>
+        
+        <div class="conclusion-items">
+          <div class="conclusion-item"><strong>技術の価値をビジネスの言葉で語る</strong>ことが重要。最新AIも使われてナンボ。</div>
+          <div class="conclusion-item"><strong>データとAIを組み合わせてこそ価値が出る</strong>。現場のニーズに即した工夫が成果を生む。</div>
+          <div class="conclusion-item"><strong>現場の課題に寄り添い粘り強く解決策を探る</strong>ことで、初めて技術が花開く。</div>
+        </div>
+        
+        <p>技術とビジネス、両方の視点を持てば鬼に金棒です。エンジニアの皆さんには、自分の技術がどんなビジネスインパクトを与えうるか考えてほしいですし、逆にビジネス畑の方には技術のポテンシャルにもっとワクワクしてほしいです。その橋渡し役を担う人材が増えれば、もっと面白いイノベーションが生まれるでしょう。</p>
+      </div>
+      
+      <div class="nav-buttons">
+        <a href="case-studies.html" class="nav-button">前へ：ケーススタディ</a>
+        <a href="index.html" class="nav-button">最初に戻る</a>
+      </div>
+    </div>
+    
+    <footer>
+      © 2025 技術とビジネスの橋渡し プレゼンテーション
+    </footer>
+  </div>
+
+  <script>
+    // ウィンドウロード時のアニメーション
+    window.addEventListener('load', () => {
+      // 必要に応じてアニメーションを追加
+    });
+  </script>
+</body>
+</html>

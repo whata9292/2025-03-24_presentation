@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>技術とビジネスの橋渡し - ケーススタディ</title>
+  <style>
+    :root {
+      --primary: #0056b3;
+      --secondary: #2d2d3a;
+      --accent: #00b8d4;
+      --background: #1a1a2e;
+      --text: #f0f0f0;
+      --card-bg: #23233b;
+      --highlight: #ff4081;
+      --success: #4caf50;
+      --warning: #ff9800;
+      --danger: #f44336;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      padding: 40px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .headline {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .headline h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--accent), var(--highlight));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    
+    .headline p {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    
+    .company-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: rgba(0, 87, 179, 0.2);
+      border: 1px solid var(--primary);
+      border-radius: 30px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 20px;
+    }
+    
+    .nav-link {
+      padding: 10px 20px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .nav-link:hover {
+      background-color: var(--accent);
+      color: var(--background);
+    }
+    
+    .main-content {
+      padding: 50px 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .case-studies-intro {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .case-studies-intro h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(45deg, var(--accent), var(--success));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    
+    .case-studies-intro p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    .case-study {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      margin-bottom: 30px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .case-header {
+      padding: 20px 30px;
+      background-color: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .case-header h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    
+    .case-icon {
+      transform: rotate(0deg);
+      transition: transform 0.3s ease;
+    }
+    
+    .case-study.expanded .case-icon {
+      transform: rotate(180deg);
+    }
+    
+    .case-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+    
+    .case-study.expanded .case-content {
+      max-height: 2000px;
+    }
+    
+    .case-inner {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    
+    .case-description {
+      line-height: 1.7;
+    }
+    
+    .case-description p {
+      margin-bottom: 20px;
+    }
+    
+    .case-description h4 {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: var(--accent);
+    }
+    
+    .case-description ul {
+      list-style-type: none;
+      margin-bottom: 20px;
+    }
+    
+    .case-description ul li {
+      margin-bottom: 10px;
+      padding-left: 20px;
+      position: relative;
+    }
+    
+    .case-description ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    
+    .case-illustration {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+      min-height: 300px;
+    }
+    
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .tag-tech {
+      background-color: rgba(0, 184, 212, 0.2);
+      border: 1px solid var(--accent);
+    }
+    
+    .tag-business {
+      background-color: rgba(76, 175, 80, 0.2);
+      border: 1px solid var(--success);
+    }
+    
+    .tag-challenge {
+      background-color: rgba(255, 152, 0, 0.2);
+      border: 1px solid var(--warning);
+    }
+    
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+    }
+    
+    .nav-button {
+      padding: 10px 20px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .nav-button:hover {
+      background-color: var(--accent);
+      color: var(--background);
+    }
+    
+    .satellite-diagram {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    .satellite {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      width: 80px;
+      height: 40px;
+      animation: satellite-orbit 10s linear infinite;
+    }
+    
+    @keyframes satellite-orbit {
+      0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+    }
+    
+    .earth {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #4b6cb7, #182848);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 20px rgba(75, 108, 183, 0.5);
+    }
+    
+    .radar-beam {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 100px 200px 100px;
+      border-color: transparent transparent rgba(0, 184, 212, 0.15) transparent;
+      transform-origin: top;
+      transform: translate(-50%, -50%) rotate(45deg);
+      animation: beam-scan 4s linear infinite;
+    }
+    
+    @keyframes beam-scan {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    .landslide-detection {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      height: 100%;
+    }
+    
+    .detection-image {
+      background-color: var(--card-bg);
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    
+    .detection-image::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }
+    
+    .detection-area {
+      position: absolute;
+      border: 2px dashed rgba(244, 67, 54, 0.7);
+      width: 40%;
+      height: 30%;
+      top: 30%;
+      left: 30%;
+      z-index: 1;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(244, 67, 54, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
+    }
+    
+    .original-label, .detection-label {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.8rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+    
+    .original-label {
+      left: 10px;
+    }
+    
+    .detection-label {
+      right: 10px;
+      color: var(--highlight);
+    }
+    
+    .dual-ai-diagram {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 20px;
+      height: 100%;
+    }
+    
+    .ai-stage {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+    }
+    
+    .ai-stage h4 {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .ai-stage h4::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    
+    .macro-stage h4::before {
+      background-color: var(--warning);
+    }
+    
+    .micro-stage h4::before {
+      background-color: var(--highlight);
+    }
+    
+    .resolution-indicator {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .resolution-bar {
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      flex-grow: 1;
+      margin-left: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .resolution-fill {
+      height: 100%;
+      border-radius: 5px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    
+    .macro-stage .resolution-fill {
+      width: 30%;
+      background-color: var(--warning);
+    }
+    
+    .micro-stage .resolution-fill {
+      width: 80%;
+      background-color: var(--highlight);
+    }
+    
+    .process-arrow {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+    
+    .arrow-down {
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 15px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .image-grid {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .main-image {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.8rem;
+    }
+    
+    .zoom-area {
+      position: absolute;
+      border: 2px solid var(--accent);
+      width: 30%;
+      height: 30%;
+      right: 20%;
+      bottom: 30%;
+      box-shadow: 0 0 10px rgba(0, 184, 212, 0.5);
+      pointer-events: none;
+    }
+    
+    .zoomed-image {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      height: 100px;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 10px rgba(0, 184, 212, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.8rem;
+    }
+    
+    footer {
+      padding: 30px 0;
+      text-align: center;
+      opacity: 0.7;
+      font-size: 0.9rem;
+      margin-top: 50px;
+    }
+    
+    @media (max-width: 768px) {
+      .case-inner {
+        grid-template-columns: 1fr;
+      }
+      
+      .landslide-detection {
+        grid-template-columns: 1fr;
+      }
+      
+      .headline h1 {
+        font-size: 2.5rem;
+      }
+      
+      .headline p {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="headline">
+        <div class="company-badge">Ridge-i</div>
+        <h1>技術とビジネスの橋渡し</h1>
+        <p>具体的なプロジェクト事例</p>
+      </div>
+    </header>
+    
+    <div class="nav-links">
+      <a href="key-points.html" class="nav-link">キーポイント</a>
+      <a href="#" class="nav-link">ケーススタディ</a>
+      <a href="approach.html" class="nav-link">実用化へのアプローチ</a>
+    </div>
+    
+    <div class="main-content">
+      <div class="case-studies-intro">
+        <h2>プロジェクト事例</h2>
+        <p>技術とビジネスの視点をどのように融合させ、実際の課題解決に取り組んできたかを具体的な事例を通じて紹介します。</p>
+      </div>
+      
+      <div class="case-study">
+        <div class="case-header">
+          <h3>SARを用いた地盤沈下検出</h3>
+          <div class="case-icon">▼</div>
+        </div>
+        <div class="case-content">
+          <div class="case-inner">
+            <div class="case-description">
+              <p><strong>合成開口レーダー（SAR）</strong>を用いた干渉解析（インターフェロメトリー）による地盤沈下の検出に取り組みました。技術的には非常に高度で、衛星からミリメートル単位の地盤変動を検出できます。</p>
+              
+              <h4>技術的側面</h4>
+              <ul>
+                <li>衛星からの合成開口レーダーデータを解析</li>
+                <li>干渉SAR解析によるミリメートル単位の地表変動検出</li>
+                <li>広域での継続的なモニタリングが可能</li>
+              </ul>
+              
+              <h4>ビジネス展開の課題</h4>
+              <p>技術的な成功にもかかわらず、このデータをどうビジネスに活かすかという問題に直面しました。潜在的な活用先として保険業者（リスク評価）、公共機関（インフラ維持・防災計画）、ディベロッパー（開発適地選定）などが考えられましたが、実用化にはいくつかの壁がありました。</p>
+              
+              <div class="tag tag-tech">衛星データ解析</div>
+              <div class="tag tag-tech">SAR干渉解析</div>
+              <div class="tag tag-business">リスク評価</div>
+              <div class="tag tag-challenge">ビジネスモデル構築</div>
+            </div>
+            <div class="case-illustration">
+              <div class="satellite-diagram">
+                <div class="earth"></div>
+                <div class="radar-beam"></div>
+                <div class="satellite">
+                  <svg width="80" height="40" viewBox="0 0 80 40">
+                    <rect x="20" y="15" width="40" height="10" fill="#f5f5f5" />
+                    <rect x="30" y="5" width="20" height="5" fill="#ccc" />
+                    <rect x="30" y="25" width="20" height="5" fill="#ccc" />
+                    <rect x="10" y="12" width="60" height="16" rx="3" fill="#444" />
+                    <rect x="15" y="8" width="50" height="24" rx="2" fill="#666" />
+                    <rect x="20" y="5" width="40" height="30" rx="2" fill="#888" />
+                    <rect x="35" y="0" width="10" height="40" fill="#aaa" />
+                    <circle cx="40" cy="20" r="5" fill="#00b8d4" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="case-study">
+        <div class="case-header">
+          <h3>土砂災害（地すべり・土砂崩れ）の自動検出</h3>
+          <div class="case-icon">▼</div>
+        </div>
+        <div class="case-content">
+          <div class="case-inner">
+            <div class="case-description">
+              <p>2018年の北海道胆振東部地震後、広範囲で発生した土砂崩れの状況を迅速に把握するため、JAXAからの委託で人工衛星画像から土砂崩れ箇所を自動検出するAIシステムを開発しました。</p>
+              
+              <h4>技術的アプローチ</h4>
+              <p>教師データ不足という課題に対し、2つのアプローチを組み合わせました：</p>
+              <ul>
+                <li><strong>教師あり学習</strong>：限られた土砂崩れデータを活用</li>
+                <li><strong>異常検出</strong>：通常時の地形データから異常変化を検出</li>
+              </ul>
+              
+              <h4>成果と学び</h4>
+              <p>被災地全域を数秒で解析し、約80%の精度で土砂崩れ領域を検出できるシステムを構築しました。完璧な精度を追求するエンジニアに対し、ユーザーが求めていたのは「迅速で大まかな状況把握」だったという気づきも得られました。</p>
+              
+              <div class="tag tag-tech">教師あり学習</div>
+              <div class="tag tag-tech">異常検出</div>
+              <div class="tag tag-business">災害対応</div>
+              <div class="tag tag-business">迅速性重視</div>
+            </div>
+            <div class="case-illustration">
+              <div class="landslide-detection">
+                <div class="detection-image">
+                  <span>衛星画像（災害後）</span>
+                  <div class="original-label">入力画像</div>
+                </div>
+                <div class="detection-image">
+                  <div class="detection-area"></div>
+                  <span>AI検出結果</span>
+                  <div class="detection-label">土砂崩れ検出</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="case-study">
+        <div class="case-header">
+          <h3>国土地理院の地図更新プロセス効率化</h3>
+          <div class="case-icon">▼</div>
+        </div>
+        <div class="case-content">
+          <div class="case-inner">
+            <div class="case-description">
+              <p>国土地理院の日本全国の地図データ更新は、高解像度データの取得・処理に多大なコストがかかるという課題がありました。人口密集地は頻繁に更新できても、山間部などは更新が遅れる状況が生じていました。</p>
+              
+              <h4>開発したソリューション「RIDGE DUAL AI」</h4>
+              <p>低分解能データでスクリーニングし、高分解能データの投入を最適化する二段階アプローチを開発しました：</p>
+              <ul>
+                <li><strong>マクロ解析</strong>：低解像度衛星画像で広域をスクリーニング</li>
+                <li><strong>ミクロ解析</strong>：変化が検出されたエリアのみ高解像度解析を実施</li>
+              </ul>
+              
+              <h4>ビジネス成果</h4>
+              <p>この手法により、コスト削減と未観測エリアの可視化という二つの価値を創出しました。高価な画像データの購入枚数削減、人手による精査工数の減少、更新漏れの減少につながりました。国土地理院の地図更新業務での試行採用まで実現しています。</p>
+              
+              <div class="tag tag-tech">二段階解析</div>
+              <div class="tag tag-tech">変化検出AI</div>
+              <div class="tag tag-business">コスト効率化</div>
+              <div class="tag tag-business">公共サービス</div>
+            </div>
+            <div class="case-illustration">
+              <div class="dual-ai-diagram">
+                <div class="ai-stage macro-stage">
+                  <h4>マクロ解析：低解像度での広域スクリーニング</h4>
+                  <div class="resolution-indicator">
+                    <span>解像度：</span>
+                    <div class="resolution-bar">
+                      <div class="resolution-fill"></div>
+                    </div>
+                  </div>
+                  <div class="image-grid">
+                    <div class="main-image">
+                      <span>低解像度衛星画像（広域）</span>
+                      <div class="zoom-area"></div>
+                    </div>
+                    <div class="zoomed-image">
+                      <span>変化検出</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="process-arrow">
+                  <div class="arrow-down"></div>
+                </div>
+                
+                <div class="ai-stage micro-stage">
+                  <h4>ミクロ解析：変化エリアの高解像度解析</h4>
+                  <div class="resolution-indicator">
+                    <span>解像度：</span>
+                    <div class="resolution-bar">
+                      <div class="resolution-fill"></div>
+                    </div>
+                  </div>
+                  <div class="image-grid">
+                    <div class="main-image">
+                      <span>高解像度画像（変化エリアのみ）</span>
+                    </div>
+                    <div class="zoomed-image">
+                      <span>詳細分析</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="nav-buttons">
+        <a href="key-points.html" class="nav-button">前へ：キーポイント</a>
+        <a href="approach.html" class="nav-button">次へ：実用化へのアプローチ</a>
+      </div>
+    </div>
+    
+    <footer>
+      © 2025 技術とビジネスの橋渡し プレゼンテーション
+    </footer>
+  </div>
+
+  <script>
+    // ケーススタディの展開/折りたたみ機能
+    const caseStudies = document.querySelectorAll('.case-study');
+    
+    caseStudies.forEach(study => {
+      const header = study.querySelector('.case-header');
+      
+      header.addEventListener('click', () => {
+        study.classList.toggle('expanded');
+        
+        // アイコンの変更
+        const icon = study.querySelector('.case-icon');
+        if (study.classList.contains('expanded')) {
+          icon.textContent = '▲';
+        } else {
+          icon.textContent = '▼';
+        }
+      });
+    });
+    
+    // 初期状態で最初のケーススタディを開く
+    if (caseStudies.length > 0) {
+      caseStudies[0].classList.add('expanded');
+      const firstIcon = caseStudies[0].querySelector('.case-icon');
+      firstIcon.textContent = '▲';
+    }
+  </script>
+</body>
+</html>
