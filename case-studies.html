@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>技術とビジネスの橋渡し - ケーススタディ</title>
+  <title>衛星データ解析活用の現場のリアル - ケーススタディ</title>
   <style>
     :root {
       --primary: #0056b3;
@@ -293,18 +293,6 @@
       100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
     }
     
-    .earth {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #4b6cb7, #182848);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 20px rgba(75, 108, 183, 0.5);
-    }
-    
     .radar-beam {
       position: absolute;
       top: 50%;
@@ -552,7 +540,7 @@
     <header>
       <div class="headline">
         <div class="company-badge">Ridge-i</div>
-        <h1>技術とビジネスの橋渡し</h1>
+        <h1>衛星データ解析活用の現場のリアル</h1>
         <p>具体的なプロジェクト事例</p>
       </div>
     </header>
@@ -571,46 +559,37 @@
       
       <div class="case-study">
         <div class="case-header">
-          <h3>SARを用いた地盤沈下検出</h3>
+          <h3>Ridge SAT Image Analyzer (RSIA)</h3>
           <div class="case-icon">▼</div>
         </div>
         <div class="case-content">
           <div class="case-inner">
             <div class="case-description">
-              <p><strong>合成開口レーダー（SAR）</strong>を用いた干渉解析（インターフェロメトリー）による地盤沈下の検出に取り組みました。技術的には非常に高度で、衛星からミリメートル単位の地盤変動を検出できます。</p>
+              <p>誰でも簡単に衛星画像解析AIを用いた開発ができる統合型ツール。前処理などを具備。</p>
               
               <h4>技術的側面</h4>
               <ul>
-                <li>衛星からの合成開口レーダーデータを解析</li>
-                <li>干渉SAR解析によるミリメートル単位の地表変動検出</li>
-                <li>広域での継続的なモニタリングが可能</li>
+                <li>衛星画像の前処理部分のカスタム（雲部分の処理、影除去、衛星解析向けの様々な補正など）</li>
+                <li>AIモデルの選択（物体検出、セグメンテーション）</li>
+                <li>解析結果の可視化（地図上への表示、統計情報の表示）</li>
+                <li>MLOps向け学習支援ツール・評価ツールなど</li>
+                <li>完全オンプレ環境での動作保証</li>
               </ul>
               
               <h4>ビジネス展開の課題</h4>
-              <p>技術的な成功にもかかわらず、このデータをどうビジネスに活かすかという問題に直面しました。潜在的な活用先として保険業者（リスク評価）、公共機関（インフラ維持・防災計画）、ディベロッパー（開発適地選定）などが考えられましたが、実用化にはいくつかの壁がありました。</p>
+              <ul>
+                <li>衛星画像の複雑なライセンス体系</li>
+                <li>官公庁や民間含めた現場チームの配置転換</li>
+                <li>（大幅にハードルが下がってきてはいるが）現場理解のためのAI解析、衛星解析の難易度の高さ</li>
+              </ul>
               
               <div class="tag tag-tech">衛星データ解析</div>
-              <div class="tag tag-tech">SAR干渉解析</div>
-              <div class="tag tag-business">リスク評価</div>
+              <div class="tag tag-business">環境構築</div>
               <div class="tag tag-challenge">ビジネスモデル構築</div>
             </div>
             <div class="case-illustration">
-              <div class="satellite-diagram">
-                <div class="earth"></div>
-                <div class="radar-beam"></div>
-                <div class="satellite">
-                  <svg width="80" height="40" viewBox="0 0 80 40">
-                    <rect x="20" y="15" width="40" height="10" fill="#f5f5f5" />
-                    <rect x="30" y="5" width="20" height="5" fill="#ccc" />
-                    <rect x="30" y="25" width="20" height="5" fill="#ccc" />
-                    <rect x="10" y="12" width="60" height="16" rx="3" fill="#444" />
-                    <rect x="15" y="8" width="50" height="24" rx="2" fill="#666" />
-                    <rect x="20" y="5" width="40" height="30" rx="2" fill="#888" />
-                    <rect x="35" y="0" width="10" height="40" fill="#aaa" />
-                    <circle cx="40" cy="20" r="5" fill="#00b8d4" />
-                  </svg>
-                </div>
-              </div>
+               <!-- img/rsia_flow.pngの画像を挿入する -->
+              <img src="img/rsia_flow.png" alt="Satellite" width="100%">
             </div>
           </div>
         </div>
@@ -618,49 +597,7 @@
       
       <div class="case-study">
         <div class="case-header">
-          <h3>土砂災害（地すべり・土砂崩れ）の自動検出</h3>
-          <div class="case-icon">▼</div>
-        </div>
-        <div class="case-content">
-          <div class="case-inner">
-            <div class="case-description">
-              <p>2018年の北海道胆振東部地震後、広範囲で発生した土砂崩れの状況を迅速に把握するため、JAXAからの委託で人工衛星画像から土砂崩れ箇所を自動検出するAIシステムを開発しました。</p>
-              
-              <h4>技術的アプローチ</h4>
-              <p>教師データ不足という課題に対し、2つのアプローチを組み合わせました：</p>
-              <ul>
-                <li><strong>教師あり学習</strong>：限られた土砂崩れデータを活用</li>
-                <li><strong>異常検出</strong>：通常時の地形データから異常変化を検出</li>
-              </ul>
-              
-              <h4>成果と学び</h4>
-              <p>被災地全域を数秒で解析し、約80%の精度で土砂崩れ領域を検出できるシステムを構築しました。完璧な精度を追求するエンジニアに対し、ユーザーが求めていたのは「迅速で大まかな状況把握」だったという気づきも得られました。</p>
-              
-              <div class="tag tag-tech">教師あり学習</div>
-              <div class="tag tag-tech">異常検出</div>
-              <div class="tag tag-business">災害対応</div>
-              <div class="tag tag-business">迅速性重視</div>
-            </div>
-            <div class="case-illustration">
-              <div class="landslide-detection">
-                <div class="detection-image">
-                  <span>衛星画像（災害後）</span>
-                  <div class="original-label">入力画像</div>
-                </div>
-                <div class="detection-image">
-                  <div class="detection-area"></div>
-                  <span>AI検出結果</span>
-                  <div class="detection-label">土砂崩れ検出</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="case-study">
-        <div class="case-header">
-          <h3>国土地理院の地図更新プロセス効率化</h3>
+          <h3>RIDGE DUAL AI（変化検出）</h3>
           <div class="case-icon">▼</div>
         </div>
         <div class="case-content">
@@ -684,52 +621,50 @@
               <div class="tag tag-business">公共サービス</div>
             </div>
             <div class="case-illustration">
-              <div class="dual-ai-diagram">
-                <div class="ai-stage macro-stage">
-                  <h4>マクロ解析：低解像度での広域スクリーニング</h4>
-                  <div class="resolution-indicator">
-                    <span>解像度：</span>
-                    <div class="resolution-bar">
-                      <div class="resolution-fill"></div>
-                    </div>
-                  </div>
-                  <div class="image-grid">
-                    <div class="main-image">
-                      <span>低解像度衛星画像（広域）</span>
-                      <div class="zoom-area"></div>
-                    </div>
-                    <div class="zoomed-image">
-                      <span>変化検出</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="process-arrow">
-                  <div class="arrow-down"></div>
-                </div>
-                
-                <div class="ai-stage micro-stage">
-                  <h4>ミクロ解析：変化エリアの高解像度解析</h4>
-                  <div class="resolution-indicator">
-                    <span>解像度：</span>
-                    <div class="resolution-bar">
-                      <div class="resolution-fill"></div>
-                    </div>
-                  </div>
-                  <div class="image-grid">
-                    <div class="main-image">
-                      <span>高解像度画像（変化エリアのみ）</span>
-                    </div>
-                    <div class="zoomed-image">
-                      <span>詳細分析</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="case-illustration">
+                <!-- img/rsia_flow.pngの画像を挿入する -->
+               <img src="img/RIDGE_DUAL_AI.png" alt="Satellite" width="100%">
+             </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="case-study">
+        <div class="case-header">
+          <h3>土砂災害（地すべり・土砂崩れ）への応用</h3>
+          <div class="case-icon">▼</div>
+        </div>
+        <div class="case-content">
+          <div class="case-inner">
+            <div class="case-description">
+              <p>2018年の北海道胆振東部地震後、広範囲で発生した土砂崩れの状況を迅速に把握するため、JAXAからの委託で人工衛星画像から土砂崩れ箇所を自動検出するAIシステムを開発しました。</p>
+              
+              <h4>技術的アプローチ</h4>
+              <p>教師データ不足という課題に対し、2つのアプローチを組み合わせました：</p>
+              <ul>
+                <li><strong>教師あり学習</strong>：限られた土砂崩れデータを活用</li>
+                <li><strong>異常検出</strong>：通常時の地形データから異常変化を検出</li>
+              </ul>
+              
+              <h4>成果と学び</h4>
+              <p>被災地全域を数秒で解析し、約80%の精度で土砂崩れ領域を検出できるシステムを構築しました。完璧な精度を追求するエンジニアに対し、ユーザーが求めていたのは「迅速で大まかな状況把握」だったという気づきも得られました。</p>
+              
+              <div class="tag tag-tech">教師あり学習</div>
+              <div class="tag tag-tech">異常検出</div>
+              <div class="tag tag-business">災害対応</div>
+              <div class="tag tag-business">迅速性重視</div>
+            </div>
+            <div class="case-illustration">
+              <div class="case-illustration">
+                <!-- img/rsia_flow.pngの画像を挿入する -->
+               <img src="img/land_slide.png" alt="Satellite" width="100%">
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       
       <div class="nav-buttons">
         <a href="key-points.html" class="nav-button">前へ：キーポイント</a>
@@ -738,7 +673,7 @@
     </div>
     
     <footer>
-      © 2025 技術とビジネスの橋渡し プレゼンテーション
+      © 2025 衛星データ解析活用の現場のリアル プレゼンテーション
     </footer>
   </div>
 
